@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Class-Path: lib/h2-1.4.192.jar lib/ini4j-0.5.4.jar lib/controlsfx-8.40
+ .13.jar
+Main-Class: JumpWorship.Main
+

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_jumpworship" default="compile.module.jumpworship">
+  <dirname property="module.jumpworship.basedir" file="${ant.file.module_jumpworship}"/>
+  
+  <property name="module.jdk.home.jumpworship" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.jumpworship" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.jumpworship" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.jumpworship" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="jumpworship.output.dir" value="${module.jumpworship.basedir}/out/production/JumpWorship"/>
+  <property name="jumpworship.testoutput.dir" value="${module.jumpworship.basedir}/out/test/JumpWorship"/>
+  
+  <path id="jumpworship.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="jumpworship.module.production.classpath">
+    <path refid="${module.jdk.classpath.jumpworship}"/>
+    <path refid="library.h2-1.4.192.classpath"/>
+  </path>
+  
+  <path id="jumpworship.runtime.production.module.classpath">
+    <pathelement location="${jumpworship.output.dir}"/>
+    <path refid="library.h2-1.4.192.classpath"/>
+  </path>
+  
+  <path id="jumpworship.module.classpath">
+    <path refid="${module.jdk.classpath.jumpworship}"/>
+    <pathelement location="${jumpworship.output.dir}"/>
+    <path refid="library.h2-1.4.192.classpath"/>
+  </path>
+  
+  <path id="jumpworship.runtime.module.classpath">
+    <pathelement location="${jumpworship.testoutput.dir}"/>
+    <pathelement location="${jumpworship.output.dir}"/>
+    <path refid="library.h2-1.4.192.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.jumpworship">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.jumpworship">
+    <patternset refid="excluded.from.module.jumpworship"/>
+  </patternset>
+  
+  <path id="jumpworship.module.sourcepath">
+    <dirset dir="${module.jumpworship.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.jumpworship" depends="compile.module.jumpworship.production,compile.module.jumpworship.tests" description="Compile module JumpWorship"/>
+  
+  <target name="compile.module.jumpworship.production" depends="register.custom.compilers" description="Compile module JumpWorship; production classes">
+    <mkdir dir="${jumpworship.output.dir}"/>
+    <javac2 destdir="${jumpworship.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.jumpworship}/javac">
+      <compilerarg line="${compiler.args.jumpworship}"/>
+      <bootclasspath refid="jumpworship.module.bootclasspath"/>
+      <classpath refid="jumpworship.module.production.classpath"/>
+      <src refid="jumpworship.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.jumpworship"/>
+    </javac2>
+    
+    <copy todir="${jumpworship.output.dir}">
+      <fileset dir="${module.jumpworship.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.jumpworship.tests" depends="register.custom.compilers,compile.module.jumpworship.production" description="compile module JumpWorship; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.jumpworship" description="cleanup module">
+    <delete dir="${jumpworship.output.dir}"/>
+    <delete dir="${jumpworship.testoutput.dir}"/>
+  </target>
+</project>
