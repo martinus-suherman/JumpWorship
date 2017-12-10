@@ -1,0 +1,21 @@
+<component name="ArtifactManager">
+  <artifact name="JumpWorship:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/</output-path>
+    <root id="root">
+      <element id="archive" name="JumpWorship.jar">
+        <element id="module-output" name="JumpWorship" />
+      </element>
+      <element id="file-copy" path="$PROJECT_DIR$/JumpWorship.ini" />
+      <element id="directory" name="lib">
+        <element id="file-copy" path="C:/Programs/Development/H2/bin/h2-1.4.192.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/../../Libs/ini4j-0.5.4.jar" />
+        <element id="file-copy" path="$PROJECT_DIR$/../../Libs/controlsfx-8.40.13.jar" />
+      </element>
+      <element id="directory" name="data">
+        <element id="file-copy" path="$PROJECT_DIR$/data/worship.mv.db" />
+        <element id="file-copy" path="$PROJECT_DIR$/data/worship.trace.db" />
+        <element id="file-copy" path="$PROJECT_DIR$/data/bright 720.mp4" />
+      </element>
+    </root>
+  </artifact>
+</component>
